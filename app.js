@@ -1,13 +1,14 @@
 $(document).ready(function () {
     $(document).on("keypress", function(e) {
         if (e.which == 13) {
-            let url = ``;
-            async function mynews() {
-                let responce = await fetch(url);
-                let data = await responce.json();
-                console.log(data);
-            }
-            mynews();
+            let url = "";
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => console.log(data))
+                .catch(error => console.error("Fetch failed:", error));
         }
     });
 });
